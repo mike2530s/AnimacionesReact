@@ -12,15 +12,15 @@ import Animacion8 from './assets/componentes/Animacion8';
 import Animacion9 from './assets/componentes/Animacion9';
 
 const SECTIONS = [
-  { title: 'Opacidad', description: 'Animated.timing - Fade in', component: Animacion1 },
-  { title: 'Escalado', description: 'Animated.timing - Crecimiento progresivo', component: Animacion2 },
-  { title: 'Tipografía', description: 'Animated.timing - Tamaño de texto', component: Animacion3 },
-  { title: 'Rotación', description: 'Animated.timing con interpolate', component: Animacion4 },
-  { title: 'Botón', description: 'Animated.spring - Presión con rebote', component: Animacion5 },
-  { title: 'Animated.Image', description: 'Animated.spring - Imagen con rebote', component: Animacion6 },
-  { title: 'Animated.ScrollView', description: 'Animated.timing - Desplazamiento vertical', component: Animacion7 },
-  { title: 'Animated.FlatList', description: 'Animated.spring - Lista con escala', component: Animacion8 },
-  { title: 'Animated.SectionList', description: 'Animated.timing - Slide desde derecha', component: Animacion9 },
+  { title: 'Opacidad', description: 'Fundido de entrada con Animated.timing', component: Animacion1 },
+  { title: 'Escalado', description: 'Crecimiento progresivo con Animated.timing', component: Animacion2 },
+  { title: 'Tipografía', description: 'Escalado de fuente animado', component: Animacion3 },
+  { title: 'Rotación', description: 'Giro 360° con interpolate', component: Animacion4 },
+  { title: 'Botón', description: 'Efecto de presión con Animated.spring', component: Animacion5 },
+  { title: 'Imagen', description: 'Rebote con resorte en Animated.Image', component: Animacion6 },
+  { title: 'ScrollView', description: 'Carrusel horizontal animado', component: Animacion7 },
+  { title: 'FlatList', description: 'Lista con escala tipo resorte', component: Animacion8 },
+  { title: 'SectionList', description: 'Lista seccionada con deslizamiento', component: Animacion9 },
 ];
 
 export default function App() {
@@ -38,8 +38,8 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Animation Lab</Text>
-        <Text style={styles.headerSubtitle}>React Native Animation Showcase</Text>
+        <Text style={styles.headerTitle}>Laboratorio de Animaciones</Text>
+        <Text style={styles.headerSubtitle}>Exploración de animaciones en React Native</Text>
       </View>
       <ScrollView contentContainerStyle={styles.container}>
         {SECTIONS.map(({ title, description, component: Component }, index) => (

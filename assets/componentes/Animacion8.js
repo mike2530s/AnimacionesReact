@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Animated, Text } from 'react-native';
 
 const data = [
-    { id: '1', title: 'FlatList Item 1' },
-    { id: '2', title: 'FlatList Item 2' },
-    { id: '3', title: 'FlatList Item 3' },
+    { id: '1', title: 'Puente Golden Gate', image: 'https://picsum.photos/seed/bridge/60/60' },
+    { id: '2', title: 'Aurora Boreal', image: 'https://picsum.photos/seed/aurora/60/60' },
+    { id: '3', title: 'Temporada de Sakura', image: 'https://picsum.photos/seed/sakura/60/60' },
 ];
 
 const Animacion8 = () => {
@@ -13,38 +13,38 @@ const Animacion8 = () => {
     useEffect(() => {
         Animated.spring(animacion, {
             toValue: 1,
-            friction: 4,
-            tension: 20,
+            friction: 5,
+            tension: 30,
             useNativeDriver: true
         }).start();
     }, []);
 
-    const animatedStyle = {
-        opacity: animacion,
-        transform: [
-            { 
-                scale: animacion.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.5, 1]
-                }) 
-            }
-        ]
-    };
-
     const renderItem = ({ item }) => (
         <View style={styles.item}>
-            <Text style={styles.title}>{item.title}</Text>
+            <Animated.Image source={{ uri: item.image }} style={styles.thumb} />
+            <View style={styles.itemContent}>
+                <Text style={styles.itemTitle}>{item.title}</Text>
+                <Text style={styles.itemSub}>Toca para explorar</Text>
+            </View>
         </View>
     );
 
     return (
         <View style={styles.container}>
-            <Animated.FlatList 
+            <Animated.FlatList
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 scrollEnabled={false}
-                style={[styles.flatList, animatedStyle]}
+                style={[styles.list, {
+                    opacity: animacion,
+                    transform: [{
+                        scale: animacion.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0.8, 1]
+                        })
+                    }]
+                }]}
             />
         </View>
     );
@@ -53,25 +53,37 @@ const Animacion8 = () => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        marginVertical: 20,
-        paddingHorizontal: 20,
-        height: 200,
     },
-    flatList: {
+    list: {
         width: '100%',
     },
     item: {
-        backgroundColor: '#2d2d50',
-        padding: 15,
-        marginVertical: 8,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#3d3d60',
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#2a2a44',
+        padding: 12,
+        marginVertical: 5,
+        borderRadius: 14,
     },
-    title: {
-        fontSize: 16,
-        color: '#d0d0ff',
-    }
+    thumb: {
+        width: 50,
+        height: 50,
+        borderRadius: 12,
+    },
+    itemContent: {
+        marginLeft: 12,
+        flex: 1,
+    },
+    itemTitle: {
+        fontSize: 15,
+        fontWeight: '700',
+        color: '#e0e0ff',
+    },
+    itemSub: {
+        fontSize: 12,
+        color: '#7070a0',
+        marginTop: 2,
+    },
 });
 
 export default Animacion8;

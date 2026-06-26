@@ -1,33 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Animated, Text } from 'react-native';
 
+const items = [
+    { id: 1, title: 'Montaña', image: 'https://picsum.photos/seed/alpine/200/280' },
+    { id: 2, title: 'Costa', image: 'https://picsum.photos/seed/coastal/200/280' },
+    { id: 3, title: 'Bosque', image: 'https://picsum.photos/seed/forest/200/280' },
+    { id: 4, title: 'Desierto', image: 'https://picsum.photos/seed/desert/200/280' },
+    { id: 5, title: 'Urbano', image: 'https://picsum.photos/seed/urban/200/280' },
+];
+
 const Animacion7 = () => {
-    const [animacion] = useState(new Animated.Value(-200));
+    const [animacion] = useState(new Animated.Value(-50));
 
     useEffect(() => {
         Animated.timing(animacion, {
             toValue: 0,
-            duration: 1500,
+            duration: 800,
             useNativeDriver: true
         }).start();
     }, []);
 
-    const animatedStyle = {
-        transform: [
-            { translateY: animacion }
-        ]
-    }
-
     return (
         <View style={styles.container}>
-            <Animated.ScrollView 
-                style={[styles.scrollView, animatedStyle]}
-                horizontal={true}
+            <Animated.ScrollView
+                horizontal
                 showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.scrollContent}
+                style={[styles.scroll, {
+                    transform: [{ translateY: animacion }],
+                    opacity: animacion.interpolate({
+                        inputRange: [-50, 0],
+                        outputRange: [0, 1]
+                    })
+                }]}
             >
-                {[1, 2, 3, 4, 5].map((item) => (
-                    <View key={item} style={styles.box}>
-                        <Text style={styles.text}>Item {item}</Text>
+                {items.map((item) => (
+                    <View key={item.id} style={styles.card}>
+                        <Animated.Image
+                            source={{ uri: item.image }}
+                            style={styles.image}
+                        />
+                        <View style={styles.cardOverlay}>
+                            <Text style={styles.cardLabel}>{item.title}</Text>
+                        </View>
                     </View>
                 ))}
             </Animated.ScrollView>
@@ -37,27 +52,39 @@ const Animacion7 = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 120,
-        marginVertical: 20,
+        height: 200,
         width: '100%',
     },
-    scrollView: {
-        flexDirection: 'row',
+    scroll: {
+        flex: 1,
     },
-    box: {
-        width: 100,
-        height: 100,
-        backgroundColor: '#6c63ff',
-        marginHorizontal: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 14,
+    scrollContent: {
+        paddingHorizontal: 8,
+        gap: 12,
     },
-    text: {
+    card: {
+        width: 140,
+        height: 180,
+        borderRadius: 16,
+        overflow: 'hidden',
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+    },
+    cardOverlay: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: 12,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+    },
+    cardLabel: {
         color: '#fff',
         fontWeight: '700',
-        fontSize: 15,
-    }
+        fontSize: 14,
+    },
 });
 
 export default Animacion7;

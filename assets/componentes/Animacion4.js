@@ -1,37 +1,60 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 
 const Animacion4 = () => {
     const [animacion] = useState(new Animated.Value(0));
 
     useEffect(() => {
         Animated.timing(animacion, {
-            toValue: 360,
-            duration: 500,
-            useNativeDriver: false,
+            toValue: 1,
+            duration: 2000,
+            useNativeDriver: true,
         }).start();
     }, []);
-    const interpolacion = animacion.interpolate({
-        inputRange: [0, 360],
+    const rotate = animacion.interpolate({
+        inputRange: [0, 1],
         outputRange: ['0deg', '360deg'],
-    })
-    const estiloAnimacion = {
-        transform: [{ rotate: interpolacion }]
-    }
+    });
 
     return (
-        <View>
-            <Animated.View style={[styles.caja, estiloAnimacion]} />
+        <View style={styles.wrapper}>
+            <Animated.View style={[styles.card, { transform: [{ rotate }] }]}>
+                <Animated.Image
+                    source={{ uri: 'https://picsum.photos/seed/rotate/200/200' }}
+                    style={styles.image}
+                />
+            </Animated.View>
+            <View style={styles.pulse} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    caja: {
-        width: 100,
-        height: 100,
-        backgroundColor: '#6c63ff',
-        borderRadius: 12,
+    wrapper: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: 160,
+    },
+    card: {
+        width: 130,
+        height: 130,
+        borderRadius: 16,
+        overflow: 'hidden',
+        borderWidth: 2,
+        borderColor: '#6c63ff',
+    },
+    image: {
+        width: 130,
+        height: 130,
+    },
+    pulse: {
+        position: 'absolute',
+        width: 140,
+        height: 140,
+        borderRadius: 70,
+        borderWidth: 1,
+        borderColor: 'rgba(108,99,255,0.2)',
     },
 });
 

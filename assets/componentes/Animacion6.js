@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 
 const Animacion6 = () => {
     const [animacion] = useState(new Animated.Value(0));
@@ -7,38 +7,42 @@ const Animacion6 = () => {
     useEffect(() => {
         Animated.spring(animacion, {
             toValue: 1,
-            friction: 2,
-            tension: 50,
+            friction: 3,
+            tension: 40,
             useNativeDriver: true
         }).start();
     }, []);
 
-    const animatedStyle = {
-        transform: [
-            { scale: animacion }
-        ]
-    }
-
     return (
-        <View style={styles.container}>
-            <Animated.Image 
-                source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                style={[styles.image, animatedStyle]}
-            />
+        <View style={styles.wrapper}>
+            <Animated.View style={[styles.card, {
+                transform: [{ scale: animacion }],
+                opacity: animacion
+            }]}>
+                <Animated.Image
+                    source={{ uri: 'https://picsum.photos/seed/spring/300/180' }}
+                    style={styles.image}
+                />
+            </Animated.View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    wrapper: {
+        width: '100%',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 20,
+    },
+    card: {
+        width: '100%',
+        height: 160,
+        borderRadius: 16,
+        overflow: 'hidden',
     },
     image: {
-        width: 100,
-        height: 100,
-    }
+        width: '100%',
+        height: '100%',
+    },
 });
 
 export default Animacion6;
