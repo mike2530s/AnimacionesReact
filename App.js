@@ -10,6 +10,8 @@ import Animacion6 from './assets/componentes/Animacion6';
 import Animacion7 from './assets/componentes/Animacion7';
 import Animacion8 from './assets/componentes/Animacion8';
 import Animacion9 from './assets/componentes/Animacion9';
+import AnimacionLista from './assets/componentes/AnimacionLista';
+import Animacioncaja from './assets/componentes/Animacioncaja';
 
 const SECTIONS = [
   { title: 'Opacidad', description: 'Fundido de entrada con Animated.timing', component: Animacion1 },
@@ -21,10 +23,12 @@ const SECTIONS = [
   { title: 'ScrollView', description: 'Carrusel horizontal animado', component: Animacion7 },
   { title: 'FlatList', description: 'Lista con escala tipo resorte', component: Animacion8 },
   { title: 'SectionList', description: 'Lista seccionada con deslizamiento', component: Animacion9 },
+  { title: 'AnimacionLista', description: 'Animación secuencial en cuadrado', component: AnimacionLista },
+  { title: 'Animacioncaja', description: 'Caja que baja, rebota gigante y baja más', component: Animacioncaja },
 ];
 
 export default function App() {
-  const [playCount, setPlayCount] = useState(Array(9).fill(0));
+  const [playCount, setPlayCount] = useState(Array(11).fill(0));
 
   const handlePlay = (index) => {
     setPlayCount(prev => {
