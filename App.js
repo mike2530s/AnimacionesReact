@@ -12,6 +12,60 @@ import Animacion8 from './assets/componentes/Animacion8';
 import Animacion9 from './assets/componentes/Animacion9';
 import AnimacionLista from './assets/componentes/AnimacionLista';
 import Animacioncaja from './assets/componentes/Animacioncaja';
+import PerfilScreen from './assets/screens/PerfilScreen';
+import ConfigScreen from './assets/screens/ConfigScreen';
+
+//React navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
+import HomeScreen from './assets/screens/HomeScreen';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Inicio'
+          screenOptions={{
+            headerTitleAlign: 'right',
+            headerStyle: { backgroundColor: '#F4511E' },
+            headerTintColor: '#fff',
+          }}
+        >
+          <Stack.Screen
+            name='Inicio'
+            component={HomeScreen}
+            options={{
+              title: 'Menu Principal',
+              headerStyle: {
+                backgroundColor: '#10B981',
+              },
+              headerTintColor: '#fff',
+            }}
+          />
+          <Stack.Screen
+            name='Animaciones'
+            component={AnimacionesScreen}
+            options={{ title: 'Animaciones' }}
+          />
+          <Stack.Screen
+            name='Perfil'
+            component={PerfilScreen}
+            options={{ title: 'Mi Perfil' }}
+          />
+          <Stack.Screen
+            name='Config'
+            component={ConfigScreen}
+            options={{ title: 'Configuración' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  )
+}
 
 const SECTIONS = [
   { title: 'Opacidad', description: 'Fundido de entrada con Animated.timing', component: Animacion1 },
@@ -27,7 +81,7 @@ const SECTIONS = [
   { title: 'Animacioncaja', description: 'Caja que baja, rebota gigante y baja más', component: Animacioncaja },
 ];
 
-export default function App() {
+export function AnimacionesScreen() {
   const [playCount, setPlayCount] = useState(Array(11).fill(0));
 
   const handlePlay = (index) => {
